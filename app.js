@@ -3,7 +3,6 @@ require("dotenv").config()
 const logger = require("morgan")
 const express = require("express")
 const home = require('./app/views')
-const download = require('./app/views')
 const error = require('./app/views')
 const {scrapeFbEvent} = require("facebook-event-scraper");
 const ExcelJS = require('exceljs');
@@ -13,6 +12,7 @@ const app = express()
 app.use(logger("dev"))
 app.use(express.json({limit: '10mb', extended: true}))
 app.use(express.urlencoded({ extended: false }));
+app.use('/app/views', express.static(__dirname + '/app/views'));
 
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
@@ -71,7 +71,7 @@ app.post("/api/scrap", async (req, res) => {
   }
 })
 
-app.use('/', [home, download, error])
+app.use('/', [home, error])
 
 
 app.listen(process.env.PORT, () => console.log("Listening on ***** " + process.env.PORT + " *****"))
