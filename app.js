@@ -65,8 +65,10 @@ app.post("/api/scrap", async (req, res) => {
           return res.end()
       }
 
+      console.log("An error occured inside component")
       return res.redirect(`/error`);
   } catch(err) {
+      console.log(err)
       return res.redirect(`/error`);
   }
 })
