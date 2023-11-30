@@ -17,11 +17,73 @@ app.use('/app/views', express.static(__dirname + '/app/views'));
 app.set('views', __dirname + '/app/views');
 app.set('view engine', 'ejs');
 
+const AMSwitch = async (hour) => {
+    switch(parseInt(hour)) {
+        case 1:
+            return "10"
+        case 2:
+            return "11"
+        case 3:
+            return "12"
+        case 4:
+            return "13"
+        case 5:
+            return "14"
+        case 6:
+            return "15"
+        case 7:
+            return "16"
+        case 8:
+            return "17"
+        case 9:
+            return "19"
+        case 10:
+            return "19"
+        case 11:
+            return "20"
+        case 12:
+            return "21"
+        default:
+            break;
+    }
+}
+
+const PMSwitch = async (hour) => {
+    switch(parseInt(hour)) {
+        case 1:
+            return "22"
+        case 2:
+            return "23"
+        case 3:
+            return "00"
+        case 4:
+            return "01"
+        case 5:
+            return "02"
+        case 6:
+            return "03"
+        case 7:
+            return "04"
+        case 8:
+            return "05"
+        case 9:
+            return "06"
+        case 10:
+            return "07"
+        case 11:
+            return "08"
+        case 12:
+            return "09"
+        default:
+            break;
+    }
+}
+
 const formatBeginHour = async (dateStr) => {
     const parsedHours = dateStr.split("at ")[1].split(" UTC")[0].trim()
     const begin = parsedHours.includes(" – ") ? parsedHours.split(" – ")[0].trim() : parsedHours
     const [hour, minutes, period] = begin.split(/:| /);
-    const adjustedBegin = period === 'AM' ? parseInt(hour, 10) + 12 - 3 : parseInt(hour, 10) - 3;
+    const adjustedBegin = period === 'AM' ? await AMSwitch(hour) : await PMSwitch(hour)
 
     return adjustedBegin + ":" + minutes
 }
