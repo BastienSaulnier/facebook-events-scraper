@@ -34,7 +34,7 @@ app.post("/api/scrap", async (req, res) => {
           try {
               const url = event.split("?")[0]
               const eventData = await scrapeFbEvent(url)
-                  .then(() => console.log("bite"))
+                  .then(data => data)
                   .catch((data) => {
                       console.log("ERREUR EVENT", data)
                       return {
