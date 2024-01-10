@@ -34,12 +34,22 @@ app.post("/api/scrap", async (req, res) => {
           try {
               const url = event.split("?")[0]
               const eventData = await scrapeFbEvent(url)
-
+                  .then(() => console.log("bite"))
+                  .catch((data) => {
+                      console.log("ERREUR EVENT", data)
+                      return {
+                          name: null,
+                          location: {
+                              name: null
+                          },
+                          startTimestamp: null
+                      }
+                  })
 
               if(eventData) result.push({
                   title: eventData.name || "",
                   location: eventData.location?.name || "",
-                  start: await formatBeginHour(parseInt(eventData.startTimestamp) * 1000) || ""
+                  start: eventData.startTimestamp ? await formatBeginHour(parseInt(eventData.startTimestamp) * 1000) : ""
               })
           }  catch(err) {
               console.log("loop err:", err)
