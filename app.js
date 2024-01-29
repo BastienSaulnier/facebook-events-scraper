@@ -19,10 +19,17 @@ app.set('view engine', 'ejs');
 
 const formatBeginHour = async (timestamp) => {
     const date = new Date(timestamp);
-    const localHours = date.getHours().toString().padStart(2, '0');
-    const localMinutes = date.getMinutes().toString().padStart(2, '0');
+    const timezone = 'Europe/Paris';
 
-    return `${localHours}:${localMinutes}`
+    const formatOptions = { timeZone: timezone, hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+    const formatter = new Intl.DateTimeFormat('fr-FR', formatOptions);
+
+    const heureFormatee = formatter.format(date);
+
+    //const localHours = date.getHours().toString().padStart(2, '0');
+    //const localMinutes = date.getMinutes().toString().padStart(2, '0');
+
+    return `${heureFormatee.split(":")[0]}:${heureFormatee.split(":")[1]}`
 }
 
 app.post("/api/scrap", async (req, res) => {
