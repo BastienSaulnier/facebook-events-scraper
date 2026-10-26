@@ -1,0 +1,60 @@
+diff --git a/node_modules/facebook-event-scraper/README.md b/node_modules/facebook-event-scraper/README.md
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/index.d.ts b/node_modules/facebook-event-scraper/dist/index.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/index.js b/node_modules/facebook-event-scraper/dist/index.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/scraper.d.ts b/node_modules/facebook-event-scraper/dist/scraper.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/scraper.js b/node_modules/facebook-event-scraper/dist/scraper.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/types.d.ts b/node_modules/facebook-event-scraper/dist/types.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/types.js b/node_modules/facebook-event-scraper/dist/types.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/htmlParser.d.ts b/node_modules/facebook-event-scraper/dist/utils/htmlParser.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/htmlParser.js b/node_modules/facebook-event-scraper/dist/utils/htmlParser.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/json.d.ts b/node_modules/facebook-event-scraper/dist/utils/json.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/json.js b/node_modules/facebook-event-scraper/dist/utils/json.js
+old mode 100644
+new mode 100755
+index e89a8b3..3a296e2
+--- a/node_modules/facebook-event-scraper/dist/utils/json.js
++++ b/node_modules/facebook-event-scraper/dist/utils/json.js
+@@ -26,6 +26,11 @@ const findJsonInString = (dataString, key, isDesiredValue) => {
+         // Value is null
+         if (startCharacter === 'n' &&
+             dataString.slice(startIndex, startIndex + 4) === 'null') {
++            // Facebook now emits unrelated `"data":null` entries before the real one: keep searching
++            if (key === 'data' && isDesiredValue) {
++                startPosition = startIndex + 4;
++                continue;
++            }
+             return { startIndex, endIndex: startIndex + 3, jsonData: null };
+         }
+         // Unexpected start character
+diff --git a/node_modules/facebook-event-scraper/dist/utils/network.d.ts b/node_modules/facebook-event-scraper/dist/utils/network.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/network.js b/node_modules/facebook-event-scraper/dist/utils/network.js
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/url.d.ts b/node_modules/facebook-event-scraper/dist/utils/url.d.ts
+old mode 100644
+new mode 100755
+diff --git a/node_modules/facebook-event-scraper/dist/utils/url.js b/node_modules/facebook-event-scraper/dist/utils/url.js
+old mode 100644
+new mode 100755
